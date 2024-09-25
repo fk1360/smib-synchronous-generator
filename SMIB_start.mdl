@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.461"
+    ComputedModelVersion    "1.462"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -28,9 +28,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "F"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Sep 23 12:44:43 2024"
+  LastModifiedDate	  "Tue Sep 24 22:44:32 2024"
   RTWModifiedTimeStamp	  646560870
-  ModelVersionFormat	  "1.%<AutoIncrement:461>"
+  ModelVersionFormat	  "1.%<AutoIncrement:462>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -756,7 +756,7 @@ Model {
   }
   System {
     Name		    "SMIB_start"
-    Location		    [2, 75, 1347, 707]
+    Location		    [24, 715, 1353, 1347]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1778,16 +1778,16 @@ Model {
       Ports		      [1]
       Position		      [900, 74, 930, 106]
       Floating		      off
-      Location		      [17, 384, 532, 631]
-      Open		      off
+      Location		      [1026, 77, 1350, 324]
+      Open		      on
       NumInputPorts	      "1"
       ZoomMode		      "xonly"
       List {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
       }
-      YMin		      "0"
-      YMax		      "2.25"
+      YMin		      "-0.5"
+      YMax		      "1.5"
       DataFormat	      "Array"
       MaxDataPoints	      "500000"
     }
@@ -1824,7 +1824,7 @@ Model {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
       }
-      TimeRange		      "30              "
+      TimeRange		      "15              "
       YMin		      "0"
       YMax		      "1.1"
       DataFormat	      "Array"
