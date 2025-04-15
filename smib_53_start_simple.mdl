@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.172"
+    ComputedModelVersion    "1.174"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -24,9 +24,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Admin"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Apr 15 12:17:17 2025"
+  LastModifiedDate	  "Tue Apr 15 12:24:37 2025"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:172>"
+  ModelVersionFormat	  "1.%<AutoIncrement:174>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -675,7 +675,7 @@ Model {
   }
   System {
     Name		    "smib_53_start_simple"
-    Location		    [2, 75, 1074, 553]
+    Location		    [4, 582, 1060, 1060]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -736,8 +736,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Gensub"
-	Location		[2, 75, 1074, 553]
-	Open			on
+	Location		[7, 103, 1063, 581]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -792,7 +792,7 @@ Model {
 	}
 	Block {
 	  BlockType		  TransferFcn
-	  Name			  "Extcitationmodel"
+	  Name			  "Excitationmodel"
 	  Position		  [355, 357, 415, 393]
 	  Orientation		  "left"
 	  Denominator		  "[Tdo 1]"
@@ -1003,7 +1003,7 @@ Model {
 	Line {
 	  SrcBlock		  "Sum1"
 	  SrcPort		  1
-	  Points		  [185, 0; 0, -90]
+	  Points		  [205, 0; 0, -90]
 	  DstBlock		  "Gain1"
 	  DstPort		  1
 	}
@@ -1030,11 +1030,11 @@ Model {
 	Line {
 	  SrcBlock		  "Sum"
 	  SrcPort		  1
-	  DstBlock		  "Extcitationmodel"
+	  DstBlock		  "Excitationmodel"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Extcitationmodel"
+	  SrcBlock		  "Excitationmodel"
 	  SrcPort		  1
 	  Points		  [-15, 0]
 	  Branch {
