@@ -1,12 +1,12 @@
 Model {
-  Name			  "smib_53_start_simple"
+  Name			  "smib_r2008b_start_simple"
   Version		  7.2
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.174"
+    ComputedModelVersion    "1.175"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -24,9 +24,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Admin"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Apr 15 12:24:37 2025"
+  LastModifiedDate	  "Tue Apr 15 16:22:37 2025"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:174>"
+  ModelVersionFormat	  "1.%<AutoIncrement:175>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -487,14 +487,6 @@ Model {
       SampleTime	      "-1"
     }
     Block {
-      BlockType		      FromWorkspace
-      VariableName	      "simulink_input"
-      SampleTime	      "-1"
-      Interpolate	      on
-      ZeroCross		      off
-      OutputAfterFinalValue   "Extrapolation"
-    }
-    Block {
       BlockType		      Gain
       Gain		      "1"
       Multiplication	      "Element-wise(K.*u)"
@@ -674,7 +666,7 @@ Model {
     }
   }
   System {
-    Name		    "smib_53_start_simple"
+    Name		    "smib_r2008b_start_simple"
     Location		    [4, 582, 1060, 1060]
     Open		    on
     ModelBrowserVisibility  off
@@ -707,14 +699,6 @@ Model {
       DataFormat	      "StructureWithTime"
       MaxDataPoints	      "500000"
       SampleTime	      "0"
-    }
-    Block {
-      BlockType		      FromWorkspace
-      Name		      "From\nWorkspace"
-      Position		      [15, 173, 80, 197]
-      VariableName	      "[tout expon]"
-      SampleTime	      "0"
-      ZeroCross		      on
     }
     Block {
       BlockType		      Gain
@@ -1443,12 +1427,6 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "From\nWorkspace"
-      SrcPort		      1
-      DstBlock		      "Sum1"
-      DstPort		      1
-    }
-    Line {
       SrcBlock		      "Gensub"
       SrcPort		      2
       Points		      [20, 0]
@@ -1479,16 +1457,18 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Ramp"
-      SrcPort		      1
-      DstBlock		      "Saturation1"
-      DstPort		      1
-    }
-    Line {
       SrcBlock		      "Saturation1"
       SrcPort		      1
-      DstBlock		      "Gensub"
-      DstPort		      1
+      Points		      [10, 0]
+      Branch {
+	DstBlock		"Gensub"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -40; -300, 0]
+	DstBlock		"Sum1"
+	DstPort			1
+      }
     }
     Line {
       SrcBlock		      "Gensub"
@@ -1556,6 +1536,12 @@ Model {
       SrcBlock		      "cccc"
       SrcPort		      1
       DstBlock		      "currstat"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Ramp"
+      SrcPort		      1
+      DstBlock		      "Saturation1"
       DstPort		      1
     }
   }
