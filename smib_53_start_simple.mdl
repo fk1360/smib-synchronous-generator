@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.171"
+    ComputedModelVersion    "1.172"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -24,9 +24,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Admin"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sat Dec 07 13:04:29 2019"
+  LastModifiedDate	  "Tue Apr 15 12:17:17 2025"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:171>"
+  ModelVersionFormat	  "1.%<AutoIncrement:172>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -675,7 +675,7 @@ Model {
   }
   System {
     Name		    "smib_53_start_simple"
-    Location		    [8, 586, 1020, 1088]
+    Location		    [2, 75, 1074, 553]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -736,8 +736,8 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Gensub"
-	Location		[10, 82, 789, 537]
-	Open			off
+	Location		[2, 75, 1074, 553]
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -823,7 +823,7 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "Gain1"
-	  Position		  [545, 394, 620, 466]
+	  Position		  [670, 394, 745, 466]
 	  Orientation		  "left"
 	  Gain			  "Xd-Xdp"
 	}
@@ -865,6 +865,14 @@ Model {
 	  Name			  "Mux"
 	  Ports			  [4, 1]
 	  Position		  [270, 569, 300, 611]
+	  Orientation		  "left"
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [4, 1]
+	  Position		  [595, 409, 625, 451]
 	  Orientation		  "left"
 	  ShowName		  off
 	}
@@ -923,6 +931,13 @@ Model {
 	  Orientation		  "left"
 	  Expr			  "(Vbus^2/u(4)^2-u(1)^2/Xdp^2*u(3)^2>=0)*1/(1/u(4)+1/Xdp)*(u(1)/Xdp*u(2)+sqrt(abs(Vbus^2/u(4)^2-u(1)^2/Xdp^"
 	  "2*u(3)^2)))"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Vt computation1"
+	  Position		  [500, 415, 560, 445]
+	  Orientation		  "left"
+	  Expr			  "(Vbus^2/u(4)^2-u(1)^2/Xdp^2*u(3)^2>=0)*u(2)"
 	}
 	Block {
 	  BlockType		  Outport
@@ -986,16 +1001,9 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Gain1"
-	  SrcPort		  1
-	  Points		  [-60, 0]
-	  DstBlock		  "Sum"
-	  DstPort		  2
-	}
-	Line {
 	  SrcBlock		  "Sum1"
 	  SrcPort		  1
-	  Points		  [80, 0; 0, -90]
+	  Points		  [185, 0; 0, -90]
 	  DstBlock		  "Gain1"
 	  DstPort		  1
 	}
@@ -1042,15 +1050,23 @@ Model {
 	    }
 	  }
 	  Branch {
-	    Points		    [-80, 0]
+	    Points		    [-15, 0]
 	    Branch {
-	      Points		      [-90, 0]
-	      DstBlock		      "Product1"
-	      DstPort		      2
+	      Points		      [-65, 0]
+	      Branch {
+		Points			[-90, 0]
+		DstBlock		"Product1"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, -65]
+		DstBlock		"eqp"
+		DstPort			1
+	      }
 	    }
 	    Branch {
-	      Points		      [0, -65]
-	      DstBlock		      "eqp"
+	      Points		      [0, -55; 190, 0; 0, 65; 130, 0]
+	      DstBlock		      "Mux1"
 	      DstPort		      1
 	    }
 	  }
@@ -1079,16 +1095,24 @@ Model {
 	Line {
 	  SrcBlock		  "Fcn1"
 	  SrcPort		  1
-	  Points		  [0, 450; -540, 0; 0, -55]
+	  Points		  [0, 450; -200, 0]
 	  Branch {
-	    Points		    [0, -45]
-	    DstBlock		    "Mux"
-	    DstPort		    3
+	    Points		    [-340, 0; 0, -55]
+	    Branch {
+	      Points		      [0, -45]
+	      DstBlock		      "Mux"
+	      DstPort		      3
+	    }
+	    Branch {
+	      Points		      [-285, 0]
+	      DstBlock		      "Product2"
+	      DstPort		      1
+	    }
 	  }
 	  Branch {
-	    Points		    [-285, 0]
-	    DstBlock		    "Product2"
-	    DstPort		    1
+	    Points		    [0, -205; -65, 0; 0, -40; -25, 0; 0, -15]
+	    DstBlock		    "Mux1"
+	    DstPort		    3
 	  }
 	}
 	Line {
@@ -1147,9 +1171,17 @@ Model {
 	Line {
 	  SrcBlock		  "X"
 	  SrcPort		  1
-	  Points		  [-15, 0; 0, 60]
-	  DstBlock		  "Mux"
-	  DstPort		  4
+	  Points		  [-15, 0; 0, 25]
+	  Branch {
+	    Points		    [0, 35]
+	    DstBlock		    "Mux"
+	    DstPort		    4
+	  }
+	  Branch {
+	    Points		    [285, 0]
+	    DstBlock		    "Mux1"
+	    DstPort		    4
+	  }
 	}
 	Line {
 	  SrcBlock		  "Mechmodel2"
@@ -1185,6 +1217,26 @@ Model {
 	  SrcPort		  1
 	  DstBlock		  "Vt computation"
 	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Vt computation1"
+	  SrcPort		  1
+	  Points		  [-15, 0]
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "Vt computation1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Gain1"
+	  SrcPort		  1
+	  Points		  [-10, 0; 0, -5]
+	  DstBlock		  "Mux1"
+	  DstPort		  2
 	}
       }
     }
