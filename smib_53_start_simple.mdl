@@ -1,12 +1,12 @@
 Model {
-  Name			  "smib_53_start_curr"
+  Name			  "smib_53_start_simple"
   Version		  7.2
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.170"
+    ComputedModelVersion    "1.171"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -22,11 +22,11 @@ Model {
   Creator		  "Admin"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "F"
+  LastModifiedBy	  "Admin"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Apr 14 09:19:30 2025"
+  LastModifiedDate	  "Sat Dec 07 13:04:29 2019"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:170>"
+  ModelVersionFormat	  "1.%<AutoIncrement:171>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -482,25 +482,17 @@ Model {
   }
   BlockParameterDefaults {
     Block {
-      BlockType		      Constant
-      Value		      "1"
-      VectorParams1D	      on
-      SamplingMode	      "Sample based"
-      OutMin		      "[]"
-      OutMax		      "[]"
-      OutDataTypeMode	      "Inherit from 'Constant value'"
-      OutDataType	      "fixdt(1,16,0)"
-      ConRadixGroup	      "Use specified scaling"
-      OutScaling	      "[]"
-      OutDataTypeStr	      "Inherit: Inherit from 'Constant value'"
-      LockScale		      off
-      SampleTime	      "inf"
-      FramePeriod	      "inf"
-    }
-    Block {
       BlockType		      Fcn
       Expr		      "sin(u[1])"
       SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      FromWorkspace
+      VariableName	      "simulink_input"
+      SampleTime	      "-1"
+      Interpolate	      on
+      ZeroCross		      off
+      OutputAfterFinalValue   "Extrapolation"
     }
     Block {
       BlockType		      Gain
@@ -682,8 +674,8 @@ Model {
     }
   }
   System {
-    Name		    "smib_53_start_curr"
-    Location		    [8, 586, 1020, 1227]
+    Name		    "smib_53_start_simple"
+    Location		    [8, 586, 1020, 1088]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -697,11 +689,6 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    Block {
-      BlockType		      Constant
-      Name		      "Constant"
-      Position		      [60, 170, 90, 200]
-    }
     Block {
       BlockType		      Scope
       Name		      "D__omega"
@@ -720,6 +707,14 @@ Model {
       DataFormat	      "StructureWithTime"
       MaxDataPoints	      "500000"
       SampleTime	      "0"
+    }
+    Block {
+      BlockType		      FromWorkspace
+      Name		      "From\nWorkspace"
+      Position		      [15, 173, 80, 197]
+      VariableName	      "[tout expon]"
+      SampleTime	      "0"
+      ZeroCross		      on
     }
     Block {
       BlockType		      Gain
@@ -781,7 +776,7 @@ Model {
 	  Ports			  [1]
 	  Position		  [865, 69, 895, 101]
 	  Floating		  off
-	  Location		  [5, 49, 329, 253]
+	  Location		  [6, 49, 330, 253]
 	  Open			  on
 	  NumInputPorts		  "1"
 	  ZoomMode		  "xonly"
@@ -1301,7 +1296,7 @@ Model {
       Ports		      [1]
       Position		      [725, 44, 755, 76]
       Floating		      off
-      Location		      [5, 293, 329, 498]
+      Location		      [6, 293, 330, 498]
       Open		      on
       NumInputPorts	      "1"
       List {
@@ -1396,7 +1391,7 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Constant"
+      SrcBlock		      "From\nWorkspace"
       SrcPort		      1
       DstBlock		      "Sum1"
       DstPort		      1

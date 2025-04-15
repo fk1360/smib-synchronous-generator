@@ -1,12 +1,12 @@
 Model {
-  Name			  "smib_53_start_1"
+  Name			  "smib_53_start_feedfowrard"
   Version		  7.2
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.243"
+    ComputedModelVersion    "1.245"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -22,11 +22,11 @@ Model {
   Creator		  "Admin"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "F"
+  LastModifiedBy	  "Admin"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sun Apr 13 20:37:50 2025"
+  LastModifiedDate	  "Sat Dec 07 13:03:37 2019"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:243>"
+  ModelVersionFormat	  "1.%<AutoIncrement:245>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -674,8 +674,8 @@ Model {
     }
   }
   System {
-    Name		    "smib_53_start_1"
-    Location		    [7, 577, 1019, 1217]
+    Name		    "smib_53_start_feedfowrard"
+    Location		    [7, 577, 1019, 1079]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -711,7 +711,7 @@ Model {
     Block {
       BlockType		      FromWorkspace
       Name		      "From\nWorkspace"
-      Position		      [50, 58, 115, 82]
+      Position		      [15, 173, 80, 197]
       VariableName	      "[tout expon]"
       SampleTime	      "0"
       ZeroCross		      on
@@ -736,7 +736,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Gensub"
-	Location		[2, 82, 997, 722]
+	Location		[2, 83, 997, 568]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -776,7 +776,7 @@ Model {
 	  Ports			  [1]
 	  Position		  [865, 69, 895, 101]
 	  Floating		  off
-	  Location		  [6, 56, 330, 260]
+	  Location		  [14, 62, 338, 266]
 	  Open			  on
 	  NumInputPorts		  "1"
 	  ZoomMode		  "xonly"
@@ -1206,14 +1206,6 @@ Model {
     }
     Block {
       BlockType		      Mux
-      Name		      "Mux"
-      Ports		      [2, 1]
-      Position		      [345, 164, 375, 206]
-      ShowName		      off
-      Inputs		      "2"
-    }
-    Block {
-      BlockType		      Mux
       Name		      "Mux1"
       Ports		      [4, 1]
       Position		      [565, 464, 595, 506]
@@ -1243,7 +1235,7 @@ Model {
     Block {
       BlockType		      Saturate
       Name		      "Saturation"
-      Position		      [300, 170, 320, 200]
+      Position		      [365, 170, 385, 200]
       UpperLimit	      "2"
       LowerLimit	      "0"
     }
@@ -1251,13 +1243,6 @@ Model {
       BlockType		      Saturate
       Name		      "Saturation1"
       Position		      [475, 100, 505, 130]
-      UpperLimit	      "1"
-      LowerLimit	      "0"
-    }
-    Block {
-      BlockType		      Saturate
-      Name		      "Saturation2"
-      Position		      [65, 170, 90, 200]
       UpperLimit	      "1"
       LowerLimit	      "0"
     }
@@ -1318,7 +1303,7 @@ Model {
     Block {
       BlockType		      TransferFcn
       Name		      "Transfer Fcn"
-      Position		      [220, 167, 280, 203]
+      Position		      [255, 167, 315, 203]
       Numerator		      "[150]"
       Denominator	      "[0.025 1]"
     }
@@ -1379,7 +1364,7 @@ Model {
       Location		      [676, 58, 1000, 260]
       Open		      on
       NumInputPorts	      "1"
-      ZoomMode		      "xonly"
+      ZoomMode		      "yonly"
       List {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
@@ -1410,12 +1395,6 @@ Model {
       DataFormat	      "StructureWithTime"
       MaxDataPoints	      "500000"
       SampleTime	      "0"
-    }
-    Block {
-      BlockType		      Fcn
-      Name		      "sinn"
-      Position		      [395, 169, 440, 201]
-      Expr		      "u(1)*u(2)/180*pi/(sin(u(2)/180*pi)+0.01*(u(2)==0))"
     }
     Block {
       BlockType		      Fcn
@@ -1549,56 +1528,15 @@ Model {
     }
     Line {
       SrcBlock		      "Gensub"
-      SrcPort		      4
-      Points		      [15, 0; 0, 115; -290, 0]
-      DstBlock		      "Sum2"
-      DstPort		      2
-    }
-    Line {
-      SrcBlock		      "Saturation2"
-      SrcPort		      1
-      DstBlock		      "Sum1"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "sinn"
-      SrcPort		      1
-      DstBlock		      "Sum2"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Mux"
-      SrcPort		      1
-      DstBlock		      "sinn"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Saturation"
-      SrcPort		      1
-      Points		      [0, -10]
-      DstBlock		      "Mux"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Gensub"
       SrcPort		      5
-      Points		      [10, 0; 0, 80]
-      Branch {
-	Points			[-435, 0]
-	DstBlock		"Mux"
-	DstPort			2
-      }
-      Branch {
-	Points			[0, 215]
-	DstBlock		"Mux1"
-	DstPort			2
-      }
+      Points		      [10, 0; 0, 295]
+      DstBlock		      "Mux1"
+      DstPort		      2
     }
     Line {
       SrcBlock		      "From\nWorkspace"
       SrcPort		      1
-      Points		      [0, 65; -75, 0; 0, 50]
-      DstBlock		      "Saturation2"
+      DstBlock		      "Sum1"
       DstPort		      1
     }
     Line {
@@ -1619,6 +1557,19 @@ Model {
       SrcPort		      1
       DstBlock		      "currstator"
       DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Saturation"
+      SrcPort		      1
+      DstBlock		      "Sum2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Gensub"
+      SrcPort		      4
+      Points		      [15, 0; 0, 115; -290, 0]
+      DstBlock		      "Sum2"
+      DstPort		      2
     }
   }
 }
