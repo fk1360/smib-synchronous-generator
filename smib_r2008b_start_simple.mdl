@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.175"
+    ComputedModelVersion    "1.189"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -22,11 +22,11 @@ Model {
   Creator		  "Admin"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Admin"
+  LastModifiedBy	  "F"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Apr 15 16:22:37 2025"
+  LastModifiedDate	  "Thu Apr 24 18:19:56 2025"
   RTWModifiedTimeStamp	  0
-  ModelVersionFormat	  "1.%<AutoIncrement:175>"
+  ModelVersionFormat	  "1.%<AutoIncrement:189>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -667,7 +667,7 @@ Model {
   }
   System {
     Name		    "smib_r2008b_start_simple"
-    Location		    [4, 582, 1060, 1060]
+    Location		    [4, 582, 1016, 1060]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -720,7 +720,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Gensub"
-	Location		[7, 103, 1063, 581]
+	Location		[2, 82, 997, 722]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -913,8 +913,8 @@ Model {
 	  Name			  "Vt computation"
 	  Position		  [180, 575, 240, 605]
 	  Orientation		  "left"
-	  Expr			  "(Vbus^2/u(4)^2-u(1)^2/Xdp^2*u(3)^2>=0)*1/(1/u(4)+1/Xdp)*(u(1)/Xdp*u(2)+sqrt(abs(Vbus^2/u(4)^2-u(1)^2/Xdp^"
-	  "2*u(3)^2)))"
+	  Expr			  "(Vbus^2/u(4)^2-u(1)^2/Xdp^2*u(3)^2>=0)*1/(1/u(4)+1/Xdp)*(u(1)/Xdp*u(2)+sqrt(Vbus^2/u(4)^2-u(1)^2/Xdp^2*u("
+	  "3)^2))"
 	}
 	Block {
 	  BlockType		  Fcn
@@ -924,6 +924,13 @@ Model {
 	  Expr			  "(Vbus^2/u(4)^2-u(1)^2/Xdp^2*u(3)^2>=0)*u(2)"
 	}
 	Block {
+	  BlockType		  Fcn
+	  Name			  "Vt computation2"
+	  Position		  [185, 510, 245, 540]
+	  Orientation		  "left"
+	  Expr			  "abs(1/(1/u(4)+1/Xdp)*(u(1)/Xdp*u(2)+sqrt(Vbus^2/u(4)^2-u(1)^2/Xdp^2*u(3)^2)))"
+	}
+	Block {
 	  BlockType		  Outport
 	  Name			  "D_Omega"
 	  Position		  [520, 88, 550, 102]
@@ -931,29 +938,29 @@ Model {
 	}
 	Block {
 	  BlockType		  Outport
-	  Name			  "Vt"
-	  Position		  [675, 643, 705, 657]
-	  Port			  "2"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Outport
 	  Name			  "Tepu"
 	  Position		  [305, 233, 335, 247]
-	  Port			  "3"
+	  Port			  "2"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "eqp"
 	  Position		  [280, 303, 310, 317]
-	  Port			  "4"
+	  Port			  "3"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "deltt"
 	  Position		  [810, 123, 840, 137]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Vtasyn"
+	  Position		  [225, 448, 255, 462]
 	  Port			  "5"
 	  IconDisplay		  "Port number"
 	}
@@ -1108,15 +1115,9 @@ Model {
 	    DstPort		    2
 	  }
 	  Branch {
-	    Points		    [0, 90; 465, 0; 0, -30]
-	    Branch {
-	      DstBlock		      "Product"
-	      DstPort		      2
-	    }
-	    Branch {
-	      DstBlock		      "Vt"
-	      DstPort		      1
-	    }
+	    Points		    [0, 90; 465, 0]
+	    DstBlock		    "Product"
+	    DstPort		    2
 	  }
 	}
 	Line {
@@ -1199,8 +1200,15 @@ Model {
 	Line {
 	  SrcBlock		  "Mux"
 	  SrcPort		  1
-	  DstBlock		  "Vt computation"
-	  DstPort		  1
+	  Points		  [-5, 0]
+	  Branch {
+	    DstBlock		    "Vt computation"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Vt computation2"
+	    DstPort		    1
+	  }
 	}
 	Line {
 	  SrcBlock		  "Vt computation1"
@@ -1222,6 +1230,13 @@ Model {
 	  DstBlock		  "Mux1"
 	  DstPort		  2
 	}
+	Line {
+	  SrcBlock		  "Vt computation2"
+	  SrcPort		  1
+	  Points		  [-15, 0; 0, -70]
+	  DstBlock		  "Vtasyn"
+	  DstPort		  1
+	}
       }
     }
     Block {
@@ -1236,7 +1251,7 @@ Model {
       BlockType		      Reference
       Name		      "Ramp"
       Ports		      [0, 1]
-      Position		      [225, 100, 255, 130]
+      Position		      [130, 100, 160, 130]
       SourceBlock	      "simulink/Sources/Ramp"
       SourceType	      "Ramp"
       ShowPortLabels	      "FromPortIcon"
@@ -1262,7 +1277,15 @@ Model {
     Block {
       BlockType		      Saturate
       Name		      "Saturation1"
-      Position		      [350, 100, 380, 130]
+      Position		      [235, 100, 265, 130]
+      UpperLimit	      "0.3"
+      LowerLimit	      "0"
+    }
+    Block {
+      BlockType		      Saturate
+      Name		      "Saturation2"
+      Position		      [130, 25, 160, 55]
+      Orientation	      "left"
       UpperLimit	      "1"
       LowerLimit	      "0"
     }
@@ -1296,7 +1319,7 @@ Model {
       BlockType		      Scope
       Name		      "Te"
       Ports		      [1]
-      Position		      [720, 159, 750, 191]
+      Position		      [755, 114, 785, 146]
       Floating		      off
       Location		      [336, 48, 660, 250]
       Open		      on
@@ -1330,7 +1353,7 @@ Model {
       BlockType		      Scope
       Name		      "Vt"
       Ports		      [1]
-      Position		      [725, 44, 755, 76]
+      Position		      [765, 189, 795, 221]
       Floating		      off
       Location		      [6, 293, 330, 498]
       Open		      on
@@ -1429,46 +1452,14 @@ Model {
     Line {
       SrcBlock		      "Gensub"
       SrcPort		      2
-      Points		      [20, 0]
-      Branch {
-	Points			[0, -70]
-	DstBlock		"Vt"
-	DstPort			1
-      }
-      Branch {
-	Points			[0, 125]
-	Branch {
-	  Points		  [-490, 0]
-	  DstBlock		  "Sum"
-	  DstPort		  2
-	}
-	Branch {
-	  Points		  [0, 225]
-	  DstBlock		  "Mux"
-	  DstPort		  3
-	}
-      }
-    }
-    Line {
-      SrcBlock		      "Gensub"
-      SrcPort		      3
-      Points		      [75, 0]
       DstBlock		      "Te"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Saturation1"
       SrcPort		      1
-      Points		      [10, 0]
-      Branch {
-	DstBlock		"Gensub"
-	DstPort			1
-      }
-      Branch {
-	Points			[0, -40; -300, 0]
-	DstBlock		"Sum1"
-	DstPort			1
-      }
+      DstBlock		      "Gensub"
+      DstPort		      1
     }
     Line {
       SrcBlock		      "Gensub"
@@ -1514,15 +1505,15 @@ Model {
     }
     Line {
       SrcBlock		      "Gensub"
-      SrcPort		      4
-      Points		      [15, 0; 0, 280]
+      SrcPort		      3
+      Points		      [15, 0; 0, 305]
       DstBlock		      "Mux"
       DstPort		      1
     }
     Line {
       SrcBlock		      "Gensub"
-      SrcPort		      5
-      Points		      [0, 265]
+      SrcPort		      4
+      Points		      [10, 0; 0, 290]
       DstBlock		      "Mux"
       DstPort		      2
     }
@@ -1541,7 +1532,44 @@ Model {
     Line {
       SrcBlock		      "Ramp"
       SrcPort		      1
-      DstBlock		      "Saturation1"
+      Points		      [25, 0]
+      Branch {
+	DstBlock		"Saturation1"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -75]
+	DstBlock		"Saturation2"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Gensub"
+      SrcPort		      5
+      Points		      [0, 0]
+      Branch {
+	Points			[0, 60; -470, 0]
+	DstBlock		"Sum"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, 0; 20, 0]
+	Branch {
+	  DstBlock		  "Vt"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [0, 275]
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+      }
+    }
+    Line {
+      SrcBlock		      "Saturation2"
+      SrcPort		      1
+      Points		      [-30, 0]
+      DstBlock		      "Sum1"
       DstPort		      1
     }
   }
